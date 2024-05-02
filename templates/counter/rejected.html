@@ -1,0 +1,10 @@
+{% extends 'counter/base.html' %}
+{% block content %}
+
+{% include 'counter/header.html' %}
+<div class="w-full p-3 bg-slate-100 rounded my-5">
+
+    <p class="mb-5 text-xl font-bold">Rejected Orders</p>
+    {% include 'counter/orderListing.html' %}
+</div>
+{% endblock %}

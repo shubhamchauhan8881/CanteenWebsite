@@ -1,0 +1,45 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="px-3 pb-10 text-white">
+        {% include 'store/header.html' %}
+        {% include 'store/sweeper.html' %}
+    </div>
+
+    
+    <div class="px-2 rounded-lg pb-8 bg-white">
+        <div class="flex items-center justify-center border-b-2  py-3 mx-2 mb-5">
+            <h2 class="text-5xl Cookie">Profile</h2> 
+        </div>
+        <div class="px-5">
+            <form method="post" action="./">
+                {% csrf_token %}
+                <label>
+                    <h1 class="text-6xl text-center">
+                        <i class="fa fa-solid fa-user bg-slate-100 rounded-full py-5 px-8" ></i>
+                    </h1>
+                </label>
+
+                {% if profileUpdated %}
+                <label class="">
+                    <p class="my-2 text-rose-600 p-1 text-sm  bg-white border-rose-600 border-s-4">All Details were updated.</p>
+                </label>
+                {% endif %}
+                {% for field in editForm %}
+                <div class="fieldWrapper mb-5">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {{ field.errors }}
+                </div>
+                {% endfor %}
+                <label>
+                    <button type="submit" class="bg-Canteen text-white px-8 rounded py-2">Update</button>
+                </label>
+            </form>
+        </div>
+    </div>
+
+
+    {% include 'store/footer.html' %}
+{% endblock %}

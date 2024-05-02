@@ -1,0 +1,31 @@
+<div class="">
+    <table class="w-full h-full text-left">
+        <tr>
+            <th>Name</th>
+            <th>Number</th>
+            <th>Address</th>
+            <th>Item * Quantity</th>
+            <th>Status</th>
+            <th>Payment</th>
+            <th>Placed at</th>
+        </tr>
+        {% for order in orders %}
+        <tr class="hover:bg-slate-200 rounded p-2">
+            <td>{{order.0.user.first_name}}</td>
+            <td>{% if order.1.againPhone %}{{order.1.againPhone}} {% else %}{{order.1.number}}{% endif %}</td>
+            <td>{% if order.1.againAddress %}{{order.1.againAddress}} {% else %}{{order.1.address}}{% endif %}</td>
+            <td>
+                {% for p in order.2 %}
+                <span>{{p.0.name}} x {{p.1}}, </span>
+                {% endfor %}
+            </td>
+            <td style="width: 20%;">
+                <span class="text-white text-xs pb-1 px-2 rounded-md {% if order.0.order_status == 'rejected' %}bg-rose-500{% elif order.0.order_status == 'active' %}bg-cyan-500{% elif order.0.order_status == 'accepted' %}bg-emerald-500{% elif order.0.order_status == 'pending' %}bg-yellow-500{% elif order.0.order_status == 'completed' %}bg-blue-500{% endif %}">{{order.0.order_status}}</span>
+            </td>
+            <td>{{order.0.txn_status }}</td>
+            <td>{{order.0.time}}</td>
+        </tr>
+        {% endfor %}
+    </table>      
+
+</div>

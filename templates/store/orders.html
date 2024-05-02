@@ -1,0 +1,53 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="px-3 pb-10 text-white">
+        {% include 'store/header.html' %}
+        {% include 'store/sweeper.html' %}
+    </div>
+
+    
+    <div class="px-2 rounded-lg pb-8 bg-white">
+        <div class="flex items-center justify-center border-b-2  py-3 mx-2 mb-5">
+            <h2 class="text-5xl Cookie">Orders</h2> 
+        </div>
+
+        <div class="p-5">
+            <div class="flex flex-col gap-5">
+                
+                {% for i in orders %}
+                <div class="flex bg-slate-100 p-2 rounded-md gap-2 items-top" >
+                    <div class="h-12 w-12">
+                        <img src="{% static 'media/order-conf.png' %}" class="h-full w-full object-cover">
+                    </div>
+                    <div class="grow" id="OrderDetails">
+                        <p class="text-md">
+                            {% for p in i.1 %}
+                                <span>{{p.0.name}} x {{ p.1 }}, </span>
+                            {% endfor %}
+                        </p>    
+                        <p class="text-sm font-bold">Rs. {{i.0.amount}}</p>
+                        <p class="text-xs">{{i.0.time}}</p>
+                        <div class="bg-slate-200 h-0 duration-700 overflow-hidden rounded mt-2">
+                            <div class="p-2"> 
+                                <p class="text-xs">Order id: {{ i.0.razorpay_order_id }}</p>
+                                <p class="text-xs capitalize">Payment Mode: {{i.0.payment_method}}</p>
+                                {% if i.0.payment_method != 'cod' %}
+                                    <p class="text-xs">Payment id:  {{i.0.razorpay_payment_id}}</p>
+                                    <p class="text-xs">Payment status:  {{i.0.txn_status}}</p>
+                                {% endif %}
+                                <p class="text-xs">Order status: {{ i.0.order_status }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+
+    {% include 'store/footer.html' %}
+{% endblock %}

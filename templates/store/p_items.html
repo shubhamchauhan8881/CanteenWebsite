@@ -1,0 +1,49 @@
+{% load static %}
+<div class="my-5">
+    <div class="flex items-center justify-between border-b-2 border-b-Canteen mb-2">
+        <p class="Cookie text-3xl">{{ category.name }}</p>
+        <i class="fa fa-angle-down bg-Canteen text-white py-1 px-2 rounded-full" id="showhide{{ key.0 }}" onclick="showHide('{{ key.0 }}')"></i>
+    </div>
+    {% for product in products %}
+    {% if product.product_ctgry.name == category.name %}
+    <div class="dish_container">
+        <div class="dishes p-2 bg-slate-100 rounded-md mb-3">
+            <div class="flex">
+                <div class="grow">
+                    <p class="pname">{{product.name}}</p>
+                    <p class="pprice">Rs. {{product.price}}/-</p>
+                    <p class="text-xs">Description: {{product.description}}</p>
+                </div>
+
+                <div class="relative">
+                    <div class="relative h-24 w-32 overflow-hidden rounded-xl">
+                        <img src="{{ product.image.url }}" alt="get net" class="h-full w-full object-fit">
+                    </div>
+
+                    <div class="cart_buttons absolute bottom-[-5px] left-0 right-0">
+                        <div class="available bg-Canteen text-white rounded-b-xl text-sm overflow-hidden">
+                            {% if product.availibility %}
+                            <button class="w-full py-1" id="AddToCartButton" value="{{product.id}}">Add to Cart</button>
+                            {% else %}
+                            <button class="w-full py-1 bg-rose-600">Not Available</button>
+                            {% endif %}
+
+                            <div class="hidden">
+                                <div class="flex items-center">
+                                    <button type="button" value="{{product.id}}" id="cart-minus-btn" class="px-4 text-md py-1">-</button>
+                                    <p class="grow text-center bg-white text-black py-1" id="qtty{{product.id}}">1</p>
+                                    <button type="button" value="{{product.id}}" id="cart-plus-btn" class=" px-4 text-md py-1">+</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+        </div>    
+    </div>
+    {% endif %}
+    {% endfor %}
+    
+</div>

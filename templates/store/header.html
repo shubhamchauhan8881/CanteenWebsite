@@ -1,0 +1,30 @@
+<header>
+    <div class="nav flex p-2 relative border-Canteen">
+        <div class="grow">
+            <span class="text-sm">Howdy Mate!</span>
+        </div>
+        {% if request.user.is_authenticated %}
+        <div class=" border-2 border-white text-white hover:text-Canteen hover:bg-slate-100 rounded-md overflow-hidden">
+            <button class="menu-btn px-2 rounded-md py-1">
+                <i class="fa fa-solid fa-user text-sm pe-2"></i><span class="text-xs">{{request.user.first_name}}</span>
+            </button>
+
+            <div class="menu-items shadow-blue-200 shadow z-10 absolute right-2 text-black rounded-md top-12 bg-slate-50">
+                <div class="p-2">
+                    <ul class="text-sm">
+                        <a href="../../../profile"><li class="p-2 rounded-md w-full hover:bg-slate-200 cursor-pointer hover:text-Canteen">Profile</li></a>
+                        <a href="../../../orders"><li class="p-2 rounded-md w-full hover:bg-slate-200 cursor-pointer hover:text-Canteen">Orders</li></a>
+                        <a href="../../../logout"><li class="p-2 rounded-md w-full hover:bg-slate-200 cursor-pointer hover:text-Canteen text-rose-500" >Log Out</li></a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <a href="../../../login"><button class="p-2 rounded-md border-2 border-white text-xs py-1 px-4" >Login</button></a>
+        {% endif %}
+    </div>
+
+    <div class="container mx-auto py-10">
+        <a href="../../"><p class="text-center text-5xl Cookie">Nani Ke Samose</p></a>
+    </div>
+</header>

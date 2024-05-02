@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/counter.css' %}" />
+    <title>Document</title>
+</head>
+<body>
+    <form class="counterManForm" action="./" method="POST">
+        {% csrf_token %}
+        {% if err %}
+            <div class="err">
+                <span>{{ err }}</span>
+            </div>
+        {% endif %}
+        <h2>Staff Login</h2>
+        <div>
+            <fieldset>
+                <legend>Username </legend>
+                <input type="text" name="email" required>
+            </fieldset>
+            
+            <fieldset>
+                <legend>Password </legend>
+                <input type="password" name="psw" required>
+            </fieldset>
+
+            <input type="submit" value="Login">
+
+        </div>
+    </form>
+</body>
+</html>

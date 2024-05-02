@@ -1,0 +1,55 @@
+{% extends 'store/base.html' %}
+{% block content %}
+{% load static %}
+    <div class="px-3 pb-10 text-white">
+        {% include 'store/header.html' %}
+        {% include 'store/sweeper.html' %}
+    </div>
+
+    <div class="bg-white rounded-xl relative pb-16 pt-5">
+
+        <div class="flex items-center justify-center border-b-2 py-3 mx-2">
+            <h2 class="text-5xl Cookie pe-2">Why choose us!</h2> 
+        </div>
+
+        <div class="p-5">
+                <div class="flex flex-col gap-5">
+                    
+                    <div class="flex bg-slate-100 p-2 rounded-md gap-2 items-center">
+                        <div class="h-12 w-12">
+                            <img src="{% static 'media/fast.png' %}" class="h-full w-full object-cover">
+                        </div>
+                        <div>
+                            <p class="text-md">Fast & Secure</p>
+                            <p class="opacity-60 text-xs">We provide fast and secure payments.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex bg-slate-100 p-2 rounded-md gap-2 items-center">
+                        <div class="h-12 w-12">
+                            <img src="{% static 'media/fast.png' %}" class="h-full w-full object-cover">
+                        </div>
+                        <div>
+                            <p class="text-md">Pure Food Materials</p>
+                            <p class="opacity-60 text-xs">We provide pure food materials.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <p class="text-sm opacity-60 mt-5">About:</p>
+                <p class="text-sm">At Nani Ke Samose, we are dedicated to providing you with a shopping experience like no other. Located in the heart of Lucknow.</p>
+                <p class="text-sm opacity-60 mt-5">Our Story:</p>
+                <p class="text-sm">
+                    Nani Ke Samose was founded on the principles of quality, taste, and customer satisfaction.
+                </p>
+
+        </div>
+
+      
+
+    </div>
+
+    {% include 'store/footer.html' %}
+{% endblock %}

@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/counter.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Counter @StadiumCanteen</title>
+</head>
+<body>
+    <div class="flex h-screen">
+        <div class="bg-slate-50 w-1/5 hidden md:block">
+            <div class="text-center py-8">
+                <i class="fa fa-solid fa-user text-5xl rounded-full bg-slate-200 py-5 px-7"></i>
+                <h3>Admin: {{ request.user.first_name }}</h3>
+            </div>
+
+            <div class="">
+                <ul>
+                    <a href="/counter/"><li class="cursor-pointer ps-4 py-2 hover:bg-slate-200">Home</li></a>
+                    <a href="/counter/all"><li class="cursor-pointer ps-4 py-2 hover:bg-slate-200">All Orders</li></a>
+                    <a href="/counter/accepted"><li class="cursor-pointer ps-4 py-2 hover:bg-slate-200">Accepted Orders</li></a>
+                    <a href="/counter/rejected"><li class="cursor-pointer ps-4 py-2 hover:bg-slate-200" >Rejected Orders</li></a>
+                    <a href="/counter/completed"><li class="cursor-pointer ps-4 py-2 hover:bg-slate-200">Completed Orders</li></a>
+                    <a href="/counter/failed"><li class="cursor-pointer ps-4 py-2 hover:bg-slate-200" >Failed Orders</li></a>
+                    <a href="/counter/logout/"><li class="cursor-pointer ps-4 py-2 hover:bg-slate-200"> Logout </li></a>
+                </ul>
+            </div>
+        </div>
+
+        <div class="w-4/5 grow px-3">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</body>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/counter.js' %}"></script>
+<script>
+//     // const user = "{{request.user.id}}";
+
+
+// const socket = new WebSocket(
+// 'ws://'
+// + window.location.host
+// + '/ws/notification/'
+// ); 
+// socket.onmessage = (e) => { 
+// result = JSON.parse(JSON.parse(e.data).message);
+// v = `
+// <tr class="hover:bg-slate-200 rounded p-2" id="row{{order.0.id}}">
+//     <td>${result.name}</td>
+//     <td>${result.number}</td>
+//     <td>${result.address}</td>
+//     <td>${result.amount} Rs</td>
+//     <td>${result.item_x_quantity}</td>
+//     <td>
+//         <span class="text-white text-xs pb-1 px-2 rounded-md bg-cyan-500">${result.status}</span>
+//     </td>
+//     <td>${result.payment}</td>
+//     <td>${result.placed_at}</td>
+
+//     <td>
+//         <button class="px-2 text-sm py-1  bg-rose-500 rounded text-white" value="${result.order_id}" id="RejectOrder">Reject</button>
+//         <button class="px-2 text-sm py-1  bg-emerald-500 rounded text-white" value="${result.order_id}" id="AcceptOrder">Accept</button>
+//     </td>
+// </tr>`
+
+// $("#productTable").append(v)
+
+// const audio = new Audio("{% static 'media/notify.wav' %}");
+// audio.play();
+
+// }
+// socket.onclose = (e) => { 
+//     console.log("Socket closed!"); 
+// }
+</script>
+</html>
