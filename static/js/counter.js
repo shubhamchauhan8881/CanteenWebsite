@@ -105,7 +105,7 @@ Items : ${ $(`#order-details-items_${id}`).text() }
             }
         });
     
-    },1000);
+    },20000);
    
 
 
