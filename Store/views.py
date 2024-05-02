@@ -36,7 +36,7 @@ class HomePage(View):
         NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
         category = models.Category.objects.all()
         products = self.getProducts(category)
-        return render(request, "store/Homepage.html", {"products":products, "categories":category,"NEW_IN_THE_MENU":self.NEW_IN_THE_MENU})
+        return render(request, "store/Homepage.html", {"products":products, "categories":category,"NEW_IN_THE_MENU":NEW_IN_THE_MENU})
     
     def getProducts(self, category):
         products = []
@@ -52,7 +52,7 @@ class ProfilePage(View):
         if request.user.is_authenticated:
             c = models.Customer.objects.get(user__id = request.user.id)
             editForm = forms.UserEditForm(data={"email":request.user.username,"full_name":request.user.first_name, "phone":c.number, "address":c.address})
-            return render(request, "store/profile.html", {"editForm":editForm,"NEW_IN_THE_MENU":self.NEW_IN_THE_MENU})
+            return render(request, "store/profile.html", {"editForm":editForm,"NEW_IN_THE_MENU":NEW_IN_THE_MENU})
         else:return redirect("loginpage")
 
     def post(self, request):
@@ -67,16 +67,16 @@ class ProfilePage(View):
                     number=form.cleaned_data["phone"],
                     address=form.cleaned_data["address"],
                 )
-                return render(request, "store/profile.html", {"editForm":form,"profileUpdated":True, "NEW_IN_THE_MENU":self.NEW_IN_THE_MENU})
+                return render(request, "store/profile.html", {"editForm":form,"profileUpdated":True, "NEW_IN_THE_MENU":NEW_IN_THE_MENU})
             else:
-                return render(request, "store/profile.html", {"editForm":editForm, "NEW_IN_THE_MENU":self.NEW_IN_THE_MENU})
+                return render(request, "store/profile.html", {"editForm":editForm, "NEW_IN_THE_MENU":NEW_IN_THE_MENU})
         else:return redirect("loginpage")
 
 class LoginPage(View):
     def get(self, request):
         NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
         loginForm = forms.LoginForm()
-        return render(request, "store/login.html", {"loginForm":loginForm,"NEW_IN_THE_MENU":self.NEW_IN_THE_MENU})
+        return render(request, "store/login.html", {"loginForm":loginForm,"NEW_IN_THE_MENU":NEW_IN_THE_MENU})
     
     def post(self, request):
         NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
@@ -90,14 +90,14 @@ class LoginPage(View):
                 return redirect("homepage")
         # print(form.errors)
         form.add_error("password", "Invalid email/password.")
-        return render(request, "store/login.html", {"loginForm":form,"NEW_IN_THE_MENU":self.NEW_IN_THE_MENU})
+        return render(request, "store/login.html", {"loginForm":form,"NEW_IN_THE_MENU":NEW_IN_THE_MENU})
 
 
 class RegisterUser(View):
     def get(self, request):
         NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
         registerForm = forms.RegisterForm()
-        return render(request, "store/register.html", {"registerForm":registerForm,"NEW_IN_THE_MENU":self.NEW_IN_THE_MENU})
+        return render(request, "store/register.html", {"registerForm":registerForm,"NEW_IN_THE_MENU":NEW_IN_THE_MENU})
     
     def post(self, request):
         NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
@@ -119,7 +119,7 @@ class RegisterUser(View):
             login(request, user)
             return redirect("homepage")
             
-        else:return render(request, "store/register.html", {"registerForm":regForm,"NEW_IN_THE_MENU":self.NEW_IN_THE_MENU})
+        else:return render(request, "store/register.html", {"registerForm":regForm,"NEW_IN_THE_MENU":NEW_IN_THE_MENU})
 
 
 
@@ -204,7 +204,7 @@ class Payment(View):
             }
             # async_to_sync(channel_layer.group_send)("counter",{"type":'send_notification',"message":json.dumps(order_details)})
 
-            return render(request, "store/paymentsuccess.html",{"COD":True, "orderid":order.razorpay_order_id, "address":address,"NEW_IN_THE_MENU":self.NEW_IN_THE_MENU}) 
+            return render(request, "store/paymentsuccess.html",{"COD":True, "orderid":order.razorpay_order_id, "address":address,"NEW_IN_THE_MENU":NEW_IN_THE_MENU}) 
 
         else:
             client = razorpay.Client(auth=(settings.KEY_ID, settings.KEY_SECRET))
@@ -229,7 +229,7 @@ class Payment(View):
             order.razorpay_order_reciept= razor_order_reciept
             order.payment_method = "online"
             order.save()
-            return render(request, "store/payment_processing.html",{"payment":payment, "NEW_IN_THE_MENU":self.NEW_IN_THE_MENU})
+            return render(request, "store/payment_processing.html",{"payment":payment, "NEW_IN_THE_MENU":NEW_IN_THE_MENU})
 
 @csrf_exempt
 def paymenthandler(request):    
