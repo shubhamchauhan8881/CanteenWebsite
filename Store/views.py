@@ -32,8 +32,8 @@ def Signout(request):
 
 
 class HomePage(View):
-    NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
     def get(self, request):
+        NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
         category = models.Category.objects.all()
         products = self.getProducts(category)
         return render(request, "store/Homepage.html", {"products":products, "categories":category,"NEW_IN_THE_MENU":self.NEW_IN_THE_MENU})
@@ -47,8 +47,8 @@ class HomePage(View):
 
 
 class ProfilePage(View):
-    NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
     def get(self, request):
+        NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
         if request.user.is_authenticated:
             c = models.Customer.objects.get(user__id = request.user.id)
             editForm = forms.UserEditForm(data={"email":request.user.username,"full_name":request.user.first_name, "phone":c.number, "address":c.address})
@@ -73,13 +73,13 @@ class ProfilePage(View):
         else:return redirect("loginpage")
 
 class LoginPage(View):
-    NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
     def get(self, request):
+        NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
         loginForm = forms.LoginForm()
         return render(request, "store/login.html", {"loginForm":loginForm,"NEW_IN_THE_MENU":self.NEW_IN_THE_MENU})
     
     def post(self, request):
-        
+        NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
         form = forms.LoginForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data["username"]
@@ -94,12 +94,13 @@ class LoginPage(View):
 
 
 class RegisterUser(View):
-    NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
     def get(self, request):
+        NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
         registerForm = forms.RegisterForm()
         return render(request, "store/register.html", {"registerForm":registerForm,"NEW_IN_THE_MENU":self.NEW_IN_THE_MENU})
     
     def post(self, request):
+        NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
         regForm = forms.RegisterForm(request.POST)
         if regForm.is_valid():
             user = User.objects.create(
@@ -144,8 +145,8 @@ def CartPage(request):
 
 
 class Payment(View):
-    NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
     def post(self, request):
+        NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
 
         againPhone = request.POST["againPhone"]
         againAddress = request.POST["againAddress"]
