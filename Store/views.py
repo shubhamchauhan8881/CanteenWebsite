@@ -37,11 +37,11 @@ class HomePage(View):
         category = models.Category.objects.all()
         products = self.getProducts(category)
         return render(request, "store/Homepage.html", {"products":products, "categories":category,"NEW_IN_THE_MENU":NEW_IN_THE_MENU})
-    
+
     def getProducts(self, category):
         products = []
         for category_name in category:
-            p = models.Product.objects.filter(product_ctgry = category_name)[:5]
+            p = models.Product.objects.filter(product_ctgry = category_name)
             products.extend(p)
         return products
 
@@ -77,7 +77,7 @@ class LoginPage(View):
         NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
         loginForm = forms.LoginForm()
         return render(request, "store/login.html", {"loginForm":loginForm,"NEW_IN_THE_MENU":NEW_IN_THE_MENU})
-    
+
     def post(self, request):
         NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
         form = forms.LoginForm(request.POST)
@@ -98,7 +98,7 @@ class RegisterUser(View):
         NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
         registerForm = forms.RegisterForm()
         return render(request, "store/register.html", {"registerForm":registerForm,"NEW_IN_THE_MENU":NEW_IN_THE_MENU})
-    
+
     def post(self, request):
         NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
         regForm = forms.RegisterForm(request.POST)
@@ -118,7 +118,7 @@ class RegisterUser(View):
 
             login(request, user)
             return redirect("homepage")
-            
+
         else:return render(request, "store/register.html", {"registerForm":regForm,"NEW_IN_THE_MENU":NEW_IN_THE_MENU})
 
 
@@ -141,7 +141,7 @@ def CartPage(request):
         return render(request, "store/cart.html", {"products":products, "deliveryCharge":deliveryCharge,"total":total,"customer":customer,"NEW_IN_THE_MENU":NEW_IN_THE_MENU})
     except:
         return render(request, "store/cart.html", {"cartEmpty":True, "NEW_IN_THE_MENU":NEW_IN_THE_MENU})
-        
+
 
 
 class Payment(View):
@@ -151,7 +151,7 @@ class Payment(View):
         againPhone = request.POST["againPhone"]
         againAddress = request.POST["againAddress"]
         paymentmethod = request.POST["paymentmethod"]
-        
+
         customer = models.Customer.objects.get(user__id=request.user.id)
         if againAddress == customer.address:
             againAddress = ''
@@ -165,8 +165,8 @@ class Payment(View):
             p = models.Product.objects.get(id=int(pid))
             amount += (p.price*qtty)
 
-            item_x_quantity += f"{p.name} x {p.price}, " 
-        
+            item_x_quantity += f"{p.name} x {p.price}, "
+
         if amount < 50:
             return redirect( to="cartpage", permanent=True)
 
@@ -204,7 +204,7 @@ class Payment(View):
             }
             # async_to_sync(channel_layer.group_send)("counter",{"type":'send_notification',"message":json.dumps(order_details)})
 
-            return render(request, "store/paymentsuccess.html",{"COD":True, "orderid":order.razorpay_order_id, "address":address,"NEW_IN_THE_MENU":NEW_IN_THE_MENU}) 
+            return render(request, "store/paymentsuccess.html",{"COD":True, "orderid":order.razorpay_order_id, "address":address,"NEW_IN_THE_MENU":NEW_IN_THE_MENU})
 
         else:
             client = razorpay.Client(auth=(settings.KEY_ID, settings.KEY_SECRET))
@@ -232,12 +232,12 @@ class Payment(View):
             return render(request, "store/payment_processing.html",{"payment":payment, "NEW_IN_THE_MENU":NEW_IN_THE_MENU})
 
 @csrf_exempt
-def paymenthandler(request):    
+def paymenthandler(request):
     NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
     # only accept POST request.
     if request.method == "POST":
         try:
-           
+
             # get the required parameters from post request.
             payment_id = request.POST.get('razorpay_payment_id', '')
             razorpay_order_id = request.POST.get('razorpay_order_id', '')
@@ -249,7 +249,7 @@ def paymenthandler(request):
             }
             razorpay_client = razorpay.Client(auth=(settings.KEY_ID, settings.KEY_SECRET))
             result = razorpay_client.utility.verify_payment_signature(params_dict)
-            if result is not None:                
+            if result is not None:
                 models.Orders.objects.filter(razorpay_order_id=razorpay_order_id).update(
                     txn_status='paid',
                     order_status="active",
