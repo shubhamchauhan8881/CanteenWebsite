@@ -1,6 +1,6 @@
 {% load static %}
 <div class="slider">
-    <h3>Newly Added To The Menu...</h3>
+    <h3 class="teachers text-lg">Newly added to the Menu...</h3>
 
     <div class="swiper rounded-md">
         <div class="swiper-wrapper">
@@ -8,7 +8,7 @@
             <div class="swiper-slide">
                 <div class="relative h-64 w-full">
                     <img src="{{item.image.url}}" alt="get net" class="h-full w-full object-fit">
-                    <span class="absolute bg-rose-600 py-1 px-2 rounded-tr left-0 bottom-0">@ {{item.price}} Rs.</span>
+                    <span class="absolute bg-rose-600 py-1 px-2 rounded-tr left-0 bottom-0 Inter font-semibold">@ ₹{{item.price}} </span>
                 </div>
             </div>
             {% endfor %}

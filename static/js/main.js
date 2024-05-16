@@ -1,4 +1,5 @@
 var cart = {};
+var sum_amount = 0;
 
 const swiper = new Swiper('.swiper', {
 autoplay: {
@@ -20,23 +21,12 @@ navigation: {
 
 
 
-tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          Canteen: '#004B93',
-        }
-      },
-    }
-
-  }
-
-
 function AddItemToCart(pid, action='add', e=null){
   let para = $(`#qtty${pid}`);
   let cartCounter = $("#cartCounter");
   let cartInput = $("#cartInput");
-  let prev_qtty;
+  let amc = $("#cartAmountCounter");
+  let prev_qtty=0;
   switch(action){
     case "add":
       cart[pid] = 1;
@@ -97,18 +87,12 @@ cart_minus_btn.forEach((input, index)=>{
 var menu_toggle = 1;
 
 $(".menu-btn").click(function(e) {
-    const menu_li = $(".menu-items ul li");
     menu_toggle += 1;
     
     if(menu_toggle%2==0){
         $('.menu-items').animate({height:'122px'},);
-        for (let li of menu_li){
-            $(li).show(500);
-        }
+
     }else{
-        for (let li of menu_li){
-            $(li).hide('fast');
-        }
         $('.menu-items').animate({height:'0px'},);
 
     }

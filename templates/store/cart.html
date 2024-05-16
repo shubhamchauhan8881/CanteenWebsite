@@ -6,33 +6,36 @@
     {% include 'store/sweeper.html' %}
 </div>
 
-<div class="bg-white rounded-xl p-5 pt-0">
-    <div class="flex items-center justify-center border-b-2 py-3 mx-2">
-        <h2 class="text-5xl Cookie pe-2">Cart</h2> 
-        <i class="fa fa-cart-plus" style="font-size:35px;"></i>
+<div class="bg-white text-black rounded-xl p-5 pt-0">
+
+    <div class="flex items-center justify-center border-b-2 py-3 mx-4">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline w-10 h-10">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+          </svg>
+        <h2 class="text-5xl Cookie pe-2 my-2 "> Cart</h2> 
+        
     </div>
+
 
     {% if not cartEmpty %}
 
     <div class="cart_listing flex flex-col gap-y-3">
         <p class="text-sm mt-5">Items description:</p>
         
-       {% for product in products %}
-        
+        {% for product in products %}
             <div class="box flex border-b-2">
                 <div class="grow">
-                    <p>{{product.0.name}}</p>
+                    <p class="teachers text-lg">{{product.0.name}}</p>
                 </div>
                 <div class="price">
-                    <p>{{product.0.price}} x {{product.1}}</p>
+                    <p >{{product.0.price}} x {{product.1}}</p>
                 </div>  
             </div>
-    
         {% endfor %}
         
         <div class="box flex border-b-2">
             <div class="grow">
-                <p>Delivery charge</p>
+                <p class="teachers text-lg">Delivery charge</p>
             </div>
             <div class="price">
                 <p>Rs. {{deliveryCharge}}</p>
@@ -41,59 +44,70 @@
         
         <div class="box flex border-b-2">
             <div class="grow">
-                <p class="font-bold">Sum total</p>
+                <p class="font-bold teachers text-lg">Sum total</p>
             </div>
             <div class="price">
                 <p class="font-bold">Rs. {{total}}</p>
             </div>  
         </div>
         
-        <form action="../../payment/" method="post">
+        <form action="/payment/" method="post" class="form-control">
             {% csrf_token %}
-            <div class="bg-slate-200 rounded-md p-2 mt-5 mb-2">
-                <h4 class="text-sm mb-3">Communication Preferences</h4>
+            <div class="bg-slate-200 rounded-md p-3 mt-5 mb-2">
+                <h4 class="mb-3 teachers">Communication Preferences</h4>
                     
                 <fieldset class="mb-2"> 
-                    <legend class="text-sm">Name: </legend>
-                    <input type="text" readonly value="{{customer.user.first_name}}" class="w-full outline-none rounded text-sm py-1 px-2">
+                    <legend class="text-sm teachers">Name: </legend>
+                    <input type="text" readonly value="{{customer.user.first_name}}" class="input bg-slate-100 w-full">
                 </fieldset>
                 
                 <fieldset class="mb-2">
-                    <legend class="text-sm">Phone: </legend>
-                    <input type="text" name="againPhone" value="{{customer.number}}" class="w-full outline-none rounded text-sm py-1 px-2">
+                    <legend class="text-sm teachers">Phone: </legend>
+                    <input type="text" name="againPhone" value="{{customer.number}}" class="input bg-slate-100 w-full">
                 </fieldset>
                 
                 <fieldset class="mb-2">
-                    <legend class="text-sm">Address: </legend>
-                    <input type="text" name="againAddress" value="{{customer.address}}" class="w-full outline-none rounded text-sm py-1 px-2">
+                    <legend class="text-sm teachers">Address: </legend>
+                    <input type="text" name="againAddress" value="{{customer.address}}" class="input bg-slate-100 w-full">
                 </fieldset>
 
                 <fieldset class="my-2">
                     <legend class="text-sm">Payment Method: </legend>
-                    <div class="ms-2">
-                        <input type="radio" name="paymentmethod" value="cod" checked>
-                        <span>COD</span>
+                    <div class="ms-2 flex items-center justify-start gap-2 py-1">
+                        <input type="radio" name="paymentmethod" class="checkbox checkbox-primary" value="cod" checked>
+                        <span class="teachers">COD</span>
                     </div>
-                    <!-- <div class="ms-2">
-                        <input type="radio" name="paymentmethod" value="online" checked>
-                        <span>Online Payment</span>
-                    </div> -->
+
+                    <div class="ms-2 flex items-center justify-start gap-2 py-1">
+                        <input type="radio" name="paymentmethod" class="checkbox checkbox-primary" value="" disabled>
+                        <span class="teachers">Online (will be available soon)</span>
+                    </div>
+                    
                 </fieldset>
             </div>
 
-            {% if total < 50 %}
-            <div class="border-2 border-rose-600 p-3 rounded text-sm my-3">
-                <p>Order amount must be greater than Rs. 50.</p>
-            </div>
-            <button type="submit" class="px-4 bg-rose-600 text-white p-2 rounded-md w-full ">Cannot Place Order <i class="fa fa-solid fa-cross ms-2"></i></button> 
+            {% if cant_place_order %}
+                <div class="border-2 border-rose-600 teachers p-3 rounded my-3">
+                    <p>Order amount must be greater than Rs. {{MIN_ORDER_AMOUNT}}</p>
+                </div>
+            <button type="button" class="btn bg-rose-600 hover:bg-rose-600/80 cursor-not-allowed text-white w-full ">Cannot Place Order <i class="fa fa-solid fa-cross ms-2"></i></button> 
             {% else %} 
-            <button type="submit" class="px-4 bg-Canteen text-white p-2 rounded-md w-full">Checkout & make payment <i class="fa fa-solid fa-angle-right ms-2"></i></button> 
+                <button type="submit" class="mt-5 btn bg-Canteen hover:bg-Canteen/80 text-white w-full">Confirm<i class="fa fa-solid fa-angle-right ms-2"></i></button> 
             {% endif %}
         </form>
 
     </div>
     {% else %}
-    <p class="py-5 text-center">You cart is Empty</p>
+    <div class="text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-28 h-28 mx-auto my-10">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+        </svg>
+      
+        <p class="text-center teachers text-xl text-rose-600 font-medium">You cart is empty!</p>
+        <a href="/" class="">
+            <button class="btn btn-active btn-link">Taste-test a range of foods</button>
+        </a>
+    </div>
     {% endif %}
 </div>
 

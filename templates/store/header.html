@@ -1,30 +1,48 @@
-<header>
-    <div class="nav flex p-2 relative border-Canteen">
+{% load static %}
+<header class="mb-5">
+    <div class="nav flex p-2 relative">
         <div class="grow">
-            <span class="text-sm">Howdy Mate!</span>
+            <span class="text teachers">Howdy Mate!</span>
         </div>
         {% if request.user.is_authenticated %}
-        <div class=" border-2 border-white text-white hover:text-Canteen hover:bg-slate-100 rounded-md overflow-hidden">
-            <button class="menu-btn px-2 rounded-md py-1">
-                <i class="fa fa-solid fa-user text-sm pe-2"></i><span class="text-xs">{{request.user.first_name}}</span>
+        <div class="relative">
+            <button class="menu-btn btn btn-sm btn-outline text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" /></svg>
+                <span class="text-xs">{{request.user.first_name}}</span>
             </button>
 
-            <div class="menu-items shadow-blue-200 shadow z-10 absolute right-2 text-black rounded-md top-12 bg-slate-50">
-                <div class="p-2">
-                    <ul class="text-sm">
-                        <a href="../../../profile"><li class="p-2 rounded-md w-full hover:bg-slate-200 cursor-pointer hover:text-Canteen">Profile</li></a>
-                        <a href="../../../orders"><li class="p-2 rounded-md w-full hover:bg-slate-200 cursor-pointer hover:text-Canteen">Orders</li></a>
-                        <a href="../../../logout"><li class="p-2 rounded-md w-full hover:bg-slate-200 cursor-pointer hover:text-Canteen text-rose-500" >Log Out</li></a>
-                    </ul>
+            <div class="absolute menu-items h-0 overflow-hidden top-9 left-0 right-0  bg-white rounded-md top">
+                <div class="text-sm teachers p-2">
+                    <a href="/profile/">
+                        <button class="w-full border-0 p-2 rounded-md hover:bg-Canteen hover:text-white text-black text-left">Profile</button>
+                    </a> 
+                    
+                    <a href="/orders/">
+                        <button class="w-full border-0 p-2 rounded-md hover:bg-Canteen hover:text-white text-black text-left">Orders</button>
+                    </a> 
+
+                    <a href="/logout/">
+                        <button class="w-full border-0 p-2 rounded-md hover:bg-Canteen hover:text-white text-black text-left">Logout</button>
+                    </a> 
+                
                 </div>
             </div>
         </div>
         {% else %}
-        <a href="../../../login"><button class="p-2 rounded-md border-2 border-white text-xs py-1 px-4" >Login</button></a>
+            <a href="/login/">
+                <button class="btn btn-sm btn-outline text-white" >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" />
+                  </svg>                  
+                Login
+                </button>
+            </a>
         {% endif %}
     </div>
+    <a href="/">
+        <div class="container mx-auto py-10 px-2">
+            <img src="{% static 'media/icon.png' %}" alt="icon" class="">
+        </div>
 
-    <div class="container mx-auto py-10">
-        <a href="../../"><p class="text-center text-5xl Cookie">Nani Ke Samose</p></a>
-    </div>
+    </a>
 </header>

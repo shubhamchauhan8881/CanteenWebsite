@@ -1,0 +1,23 @@
+<dialog id="my_modal_4" class="modal" open>
+  <div class="modal-box w-80 bg-slate-200 shadow-lg max-w-5xl">
+    <h3 class="font-bold text-2xl teachers text-Canteen">
+        Info
+    </h3>
+    <p class="py-2">
+        <ul class="messages text-black">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                {{ message }}
+            </li>
+            {% endfor %}
+        </ul>
+    </p>
+    <div class="modal-action">
+      <form method="dialog">
+        <!-- if there is a button, it will close the modal -->
+        <button class="btn btn-sm bg-Canteen text-white teachers">Okay</button>
+      </form>
+    </div>
+  </div>
+</dialog>

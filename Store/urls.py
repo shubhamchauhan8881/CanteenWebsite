@@ -13,6 +13,7 @@ urlpatterns = [
     path('cart/', views.CartPage, name="cartpage"),
     path('orders/', views.UserOrders),
     path('payment/', views.Payment.as_view()),
+    path('order-success/', views.OrderSuccess, name="ordersuccess"),
     path('set-cart/<str:action>/', views.ManageSessionCart),
     path('handlepayment/', views.paymenthandler),
 ]

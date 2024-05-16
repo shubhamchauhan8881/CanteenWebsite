@@ -2,16 +2,16 @@ from django import forms
 from django.contrib.auth.models import User
 
 class LoginForm(forms.Form):
-    username = forms.CharField(label="e-mail", required=True)
-    password = forms.CharField(label="Password",required=True, widget=forms.PasswordInput)
+    username = forms.CharField(label="e-mail", required=True, widget=forms.TextInput(attrs={'class':' grow', 'placeholder':'e.g. someone@email.com'}))
+    password = forms.CharField(label="Password",required=True, widget=forms.PasswordInput(attrs={'class':' grow', 'placeholder':'password'}))
 
 
 class RegisterForm(forms.Form):
-    name = forms.CharField(label="Name", required=True)
-    email = forms.CharField(label="e-Mail",required=True, widget=forms.EmailInput)
-    phone = forms.CharField(label="Phone", required=True)
-    address = forms.CharField(label="Address", required=True)
-    password = forms.CharField(label="Password",required=True, widget=forms.PasswordInput)
+    name = forms.CharField(label="Name", required=True,widget=forms.TextInput(attrs={'class':' grow', 'placeholder':'e.g. Ram'}))
+    email = forms.CharField(label="e-Mail",required=True,widget=forms.EmailInput(attrs={'class':' grow', 'placeholder':'e.g. someone@email.com'}) )
+    phone = forms.CharField(label="Phone", required=True, widget=forms.TextInput(attrs={'class':' grow', 'placeholder':'8787878787 '}))
+    address = forms.CharField(label="Address", required=True,widget=forms.TextInput(attrs={'class':' grow', 'placeholder':'NBH C block'}))
+    password = forms.CharField(label="Password",required=True,widget=forms.PasswordInput(attrs={'class':' grow', 'placeholder':'password'}))
     # retype_password = forms.CharField(label="Retype Password",required=True, widget=forms.PasswordInput)
 
 
@@ -21,16 +21,10 @@ class RegisterForm(forms.Form):
             raise forms.ValidationError("Email already registered!")
         return data
 
-    # def clean_retype_password(self):
-    #     return self.cleaned_data["retype_password"]
     def clean_password(self):
         password = self.cleaned_data["password"]
-        # retype_password = self.cleaned_data["retype_password"]
-
         if len(password) < 6:
             raise forms.ValidationError("length of password is less than 6")
-        # if password != retype_password:
-        #     raise forms.ValidationError("Password and retype password did not matched.")
         else:
             return password
         
@@ -43,10 +37,10 @@ class RegisterForm(forms.Form):
             return data
 
 class UserEditForm(forms.Form):
-    full_name = forms.CharField(label="Full Name", required=True)
-    email = forms.CharField(label="Email", widget=forms.EmailInput(attrs={'readonly': 'readonly'}))
-    phone = forms.CharField(label="Phone no", required=True)
-    address = forms.CharField(label="Address", widget=forms.Textarea, required=True)
+    name = forms.CharField(label="Full Name", required=True, widget=forms.TextInput(attrs={'class':' grow'}))
+    email = forms.CharField(label="Email", widget=forms.EmailInput(attrs={'readonly': 'readonly','class':'grow'}))
+    phone = forms.CharField(label="Phone no", required=True, widget=forms.TextInput(attrs={'class':' grow'}))
+    address = forms.CharField(label="Address", widget=forms.TextInput(attrs={'class':' grow'}), required=True)
 
     def clean_phone(self):
         data = self.cleaned_data["phone"]

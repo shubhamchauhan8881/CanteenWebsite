@@ -137,6 +137,7 @@ MEDIA_ROOT = BASE_DIR
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-KEY_ID = "rzp_test_Mi7tkNgeTu2IQR"
-KEY_SECRET = "YwntaBjmLJIC0QNkcVBkH47x"
 
+
+KEY_ID = "rzp_live_a5FvY76QUICOQl"
+KEY_SECRET = "RcqLPrV4mp5soFcQ0i3UcjGD"

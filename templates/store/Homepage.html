@@ -1,14 +1,14 @@
 {% extends 'store/base.html' %}
 {% block content %}
-    <div class="px-3 pb-10 text-white">
+    <div class="px-4 pb-10 text-white">
         {% include 'store/header.html' %}
         {% include 'store/sweeper.html' %}
     </div>
 
-    <div class="bg-white rounded-xl relative">
+    <div class="bg-white text-black rounded-xl relative">
 
-        <div class="flex items-center justify-center border-b-2 py-3 mx-2">
-            <h2 class="text-5xl Cookie pe-2">Menu</h2> 
+        <div class="flex items-center justify-center border-b-2 py-3 mx-4">
+            <h2 class="text-5xl Cookie pe-2 my-2 ">Menu</h2> 
             <svg width="30px" class="mb-2" height="30px" viewBox="0 0 16 16">
                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                     <g transform="translate(2.000000, 0.000000)" fill="#004B93">
@@ -25,16 +25,25 @@
             {% endfor %}
         </div>
 
-        <div class="sticky bottom-1 mx-2 py-1 px-3 text-white border-2 border-white rounded-md left-0 right-0 bg-Canteen">
+        <div class="sticky bottom-1 mx-3 p-1 px-2 text-white text-sm border-2 border-white rounded-md left-0 right-0 bg-Canteen/90">
             <div class="flex items-center justify-between">
                 <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                      </svg>
                     <i class="fa fa-cart-plus me-1" id="pop_nav_count"></i>
                     <span id="cartCounter">0</span> Items
+                    
                 </p>
-                <form action="../../cart/" method="post">
+                <form action="/cart/" method="post">
                     {% csrf_token %}
                     <input name="cartInput" type="text" id="cartInput" hidden>
-                    <button type="submit" id="visitCartPage" >View Cart <i class="fa fa-angle-double-right" class="cart_icon"></i></button>
+                    <button type="submit" id="visitCartPage" class="teachers text-[15px]">
+                        Pay
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
+                          </svg>
+                    </button>
                 </form>
             </div>
         </div>

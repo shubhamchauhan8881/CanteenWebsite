@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Cookie&family=Inter&family=Source+Code+Pro&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    font-family: 'Inter', monospace;
+    font-style: normal;
+    font-weight: 400;
+}
+
+
+.Cookie {
+    font-family: "Cookie", cursive;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+.teachers{
+  font-family: "Teachers", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.Inter {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings:
+      "slnt" 0;
+  }

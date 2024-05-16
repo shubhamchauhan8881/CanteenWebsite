@@ -8,21 +8,21 @@
     </div>
 
     
-    <div class="px-2 rounded-lg pb-8 bg-white">
-        <div class="flex items-center justify-center border-b-2  py-3 mx-2 mb-5">
-            <h2 class="text-5xl Cookie">Orders</h2> 
+    <div class="bg-white text-black px-2 rounded-lg pb-8">
+        <div class="flex items-center justify-center border-b-2 py-3 mx-4">
+            <h2 class="text-5xl Cookie pe-2 my-2 ">Orders</h2> 
         </div>
 
         <div class="p-5">
             <div class="flex flex-col gap-5">
-                
+                {% if orders %}
                 {% for i in orders %}
                 <div class="flex bg-slate-100 p-2 rounded-md gap-2 items-top" >
                     <div class="h-12 w-12">
                         <img src="{% static 'media/order-conf.png' %}" class="h-full w-full object-cover">
                     </div>
                     <div class="grow" id="OrderDetails">
-                        <p class="text-md">
+                        <p class="text-md teachers">
                             {% for p in i.1 %}
                                 <span>{{p.0.name}} x {{ p.1 }}, </span>
                             {% endfor %}
@@ -43,6 +43,12 @@
                     </div>
                 </div>
                 {% endfor %}
+                {% else %}
+                <div class="h-32 w-25">
+                    <img src="{% static 'media/order-f.png' %}" class="h-full w-full object-contain">
+                </div>
+                <p class="text-xl teachers">You have not placed any order yet..!</p>
+                {% endif %}
             </div>
 
         </div>

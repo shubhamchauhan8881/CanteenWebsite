@@ -1,26 +1,25 @@
 {% load static %}
 <div class="my-5">
-    <div class="flex items-center justify-between border-b-2 border-b-Canteen mb-2">
+    <div class="flex items-center justify-between border-b-[0.5px] border-b-Canteen mb-2">
         <p class="Cookie text-3xl">{{ category.name }}</p>
-        <i class="fa fa-angle-down bg-Canteen text-white py-1 px-2 rounded-full" id="showhide{{ key.0 }}" onclick="showHide('{{ key.0 }}')"></i>
     </div>
     {% for product in products %}
     {% if product.product_ctgry.name == category.name %}
     <div class="dish_container">
-        <div class="dishes p-2 bg-slate-100 rounded-md mb-3">
+        <div class="dishes bg-Canteen/10 rounded-md mb-3">
             <div class="flex">
-                <div class="grow">
-                    <p class="pname">{{product.name}}</p>
-                    <p class="pprice">Rs. {{product.price}}/-</p>
+                <div class="p-2 grow">
+                    <p class="pname teachers text-xl">{{product.name}}</p>
+                    <p class="pprice font-medium py-1">Rs. {{product.price}}/-</p>
                     <p class="text-xs">{{product.description}}</p>
                 </div>
 
                 <div class="relative">
-                    <div class="relative h-24 w-32 overflow-hidden rounded-xl">
+                    <div class="h-28 w-32 overflow-hidden rounded-xl">
                         <img src="{{ product.image.url }}" alt="get net" class="h-full w-full object-fit">
                     </div>
 
-                    <div class="cart_buttons absolute bottom-[-5px] left-0 right-0">
+                    <div class="cart_buttons absolute bottom-0 left-0 right-0">
                         <div class="available bg-Canteen text-white rounded-b-xl text-sm overflow-hidden">
                             {% if product.availibility %}
                             <button class="w-full py-1" id="AddToCartButton" value="{{product.id}}">Add to Cart</button>

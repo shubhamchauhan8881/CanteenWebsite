@@ -8,10 +8,10 @@
         {% include 'store/sweeper.html' %}
     </div>
 
-    <div class="bg-white rounded-xl">
+    <div class="bg-white text-black rounded-xl">
     
         <div class="p-3 text-center">
-            <div class=" border-b-2">
+            <div class="flex items-center justify-center border-b-2 py-3 mx-4">
                 <p class="Cookie text-5xl">Order Confirmed</p>
             </div>
 
@@ -21,12 +21,12 @@
                 </div>
                 <div class=" text-left">
                     <p class="text-xs opacity-80">Order Details</p>
-                    <p>Order Id: {{orderid}}</p>
-                    {% if COD %}
+                    <p>Order Id: {{order.razorpay_order_id}}</p>
+                    {% if order.payment_method == 'cod' %}
                     <p>Payment method: COD</p>
                     {% else %}
                     <p>Payment method: Online</p>
-                    <p>Transaction Id: {{transactionid}}</p>
+                    <p>Transaction Id: {{order.razorpay_payment_id}}</p>
                     {% endif %}
                     <p class="text-xs mt-2">Address</p>
                     <p> {{address}}</p>

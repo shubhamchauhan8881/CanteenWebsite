@@ -13,16 +13,11 @@ from django.conf import settings
 import razorpay
 import string
 import random
-
-
-
-# from channels.layers import get_channel_layer
-# from asgiref.sync import async_to_sync
-# import asyncio
+from django.contrib import messages
 
 
 deliveryCharge =0
-MIN_AMOUT_ORDER = 50
+MIN_AMOUT_ORDER = 40
 
 
 def Signout(request):
@@ -51,25 +46,27 @@ class ProfilePage(View):
         NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
         if request.user.is_authenticated:
             c = models.Customer.objects.get(user__id = request.user.id)
-            editForm = forms.UserEditForm(data={"email":request.user.username,"full_name":request.user.first_name, "phone":c.number, "address":c.address})
+            editForm = forms.UserEditForm(data={"email":request.user.username,"name":request.user.first_name, "phone":c.number, "address":c.address})
             return render(request, "store/profile.html", {"editForm":editForm,"NEW_IN_THE_MENU":NEW_IN_THE_MENU})
         else:return redirect("loginpage")
 
     def post(self, request):
+        NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
         if request.user.is_authenticated:
 
             form = forms.UserEditForm(data=request.POST)
             if form.is_valid():
                 User.objects.filter(username=request.user.username).update(
-                    first_name= form.cleaned_data["full_name"]
+                    first_name= form.cleaned_data["name"]
                 )
                 models.Customer.objects.filter(user__id = request.user.id).update(
                     number=form.cleaned_data["phone"],
                     address=form.cleaned_data["address"],
                 )
+                messages.success(request,"Details updated successfully!")
                 return render(request, "store/profile.html", {"editForm":form,"profileUpdated":True, "NEW_IN_THE_MENU":NEW_IN_THE_MENU})
             else:
-                return render(request, "store/profile.html", {"editForm":editForm, "NEW_IN_THE_MENU":NEW_IN_THE_MENU})
+                return render(request, "store/profile.html", {"editForm":form, "NEW_IN_THE_MENU":NEW_IN_THE_MENU})
         else:return redirect("loginpage")
 
 class LoginPage(View):
@@ -89,7 +86,7 @@ class LoginPage(View):
                 login(request, user)
                 return redirect("homepage")
         # print(form.errors)
-        form.add_error("password", "Invalid email/password.")
+        form.add_error("password", "Invalid email and/or password.")
         return render(request, "store/login.html", {"loginForm":form,"NEW_IN_THE_MENU":NEW_IN_THE_MENU})
 
 
@@ -129,6 +126,7 @@ def CartPage(request):
     # if request.method == "POST":
     products = []
     total = deliveryCharge
+    cant_place_order = False
     try:
         cartItems = request.POST["cartInput"]
         for pid, qtty in  json.loads(cartItems).items():
@@ -138,25 +136,33 @@ def CartPage(request):
         request.session["payment"] = cartItems
 
         customer = models.Customer.objects.get(user__id=request.user.id)
-        return render(request, "store/cart.html", {"products":products, "deliveryCharge":deliveryCharge,"total":total,"customer":customer,"NEW_IN_THE_MENU":NEW_IN_THE_MENU})
+        if total < MIN_AMOUT_ORDER:
+            print(total)
+            cant_place_order = True
+        return render(request, "store/cart.html", {"products":products, "deliveryCharge":deliveryCharge,"MIN_ORDER_AMOUNT":MIN_AMOUT_ORDER,"cant_place_order":cant_place_order,"total":total,"customer":customer,"NEW_IN_THE_MENU":NEW_IN_THE_MENU})
     except:
-        return render(request, "store/cart.html", {"cartEmpty":True, "NEW_IN_THE_MENU":NEW_IN_THE_MENU})
+        return render(request, "store/cart.html", {"cartEmpty":True,  "NEW_IN_THE_MENU":NEW_IN_THE_MENU})
 
 
+def OrderSuccess(request):
+    order_id = int(request.session["order_id"])
+    order = models.Orders.objects.get(id=order_id)
+    NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
+    address = request.user.first_name +", " + order.againPhone + ", " + order.againAddress
+    return render(request, "store/paymentsuccess.html", {"order":order,"address":address,'NEW_IN_THE_MENU':NEW_IN_THE_MENU})
 
 class Payment(View):
     def post(self, request):
-        NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
-
+        
         againPhone = request.POST["againPhone"]
         againAddress = request.POST["againAddress"]
         paymentmethod = request.POST["paymentmethod"]
 
         customer = models.Customer.objects.get(user__id=request.user.id)
-        if againAddress == customer.address:
-            againAddress = ''
-        if againPhone == customer.number:
-            againPhone = ''
+        if againAddress == "":
+            againAddress = customer.address
+        if againPhone == "":
+            againPhone = customer.number
         # product info
         amount = deliveryCharge
         item_x_quantity = ""
@@ -168,10 +174,11 @@ class Payment(View):
             item_x_quantity += f"{p.name} x {p.price}, "
 
         if amount < 50:
+            messages.success(request,f"Minimum order value is {MIN_AMOUT_ORDER}")
             return redirect( to="cartpage", permanent=True)
 
 
-        order_id = 'SCTXN' + str(random.randrange(100, 100000))+random.choice(string.ascii_letters)+ str(random.randrange(100, 100000))+ random.choice(string.ascii_letters)
+        order_id = 'SCTXN' + str(random.randrange(10, 1000))+random.choice(string.ascii_letters)+ str(random.randrange(100, 100000))+ random.choice(string.ascii_letters)
 
         order = models.Orders.objects.create(
             user = User.objects.get(id=request.user.id),
@@ -187,7 +194,6 @@ class Payment(View):
             order.order_status="active"
             order.save()
 
-            address = request.user.first_name +", " + customer.number +", " + customer.address
 
             # channel_layer = get_channel_layer()
             # print(channel_layer.group_name)
@@ -203,10 +209,13 @@ class Payment(View):
                 "order_id": order.id,
             }
             # async_to_sync(channel_layer.group_send)("counter",{"type":'send_notification',"message":json.dumps(order_details)})
-
-            return render(request, "store/paymentsuccess.html",{"COD":True, "orderid":order.razorpay_order_id, "address":address,"NEW_IN_THE_MENU":NEW_IN_THE_MENU})
+            request.session["order_id"] = order.id
+            return redirect('ordersuccess', permanent=True)
+            # return render(request, "store/paymentsuccess.html",{"COD":True, "orderid":order.razorpay_order_id, "address":address,"NEW_IN_THE_MENU":NEW_IN_THE_MENU})
 
         else:
+            NEW_IN_THE_MENU = models.NewInTheMenu.objects.all()[0].name.all()
+
             client = razorpay.Client(auth=(settings.KEY_ID, settings.KEY_SECRET))
             data = {"amount": amount*100, "currency": "INR", "receipt": order_id}
             razor_order  = client.order.create(data=data)
@@ -216,10 +225,10 @@ class Payment(View):
             payment = {
                 "keyid":settings.KEY_ID,
                 "id": razor_order_id,
-                "shopname":"Nani Ke Samose",
+                "shopname":"Cravies",
                 "currency":"INR",
                 "amount":amount*100,
-                "url":"../../handlepayment/",
+                "url":"/handlepayment/",
                 "name":customer.user.first_name,
                 "email":customer.user.email,
                 "number":customer.number,
@@ -250,15 +259,19 @@ def paymenthandler(request):
             razorpay_client = razorpay.Client(auth=(settings.KEY_ID, settings.KEY_SECRET))
             result = razorpay_client.utility.verify_payment_signature(params_dict)
             if result is not None:
-                models.Orders.objects.filter(razorpay_order_id=razorpay_order_id).update(
+                order = models.Orders.objects.filter(razorpay_order_id=razorpay_order_id).update(
                     txn_status='paid',
                     order_status="active",
                     razorpay_signature=signature,
                     razorpay_payment_id=payment_id
                 )
-                c = models.Customer.objects.get(user__id=request.user.id)
-                address = request.user.first_name +", " + c.number +", " + c.address
-                return render(request, 'store/paymentsuccess.html',{"orderid":razorpay_order_id,"transactionid":payment_id, "address":address, "NEW_IN_THE_MENU":NEW_IN_THE_MENU})
+                # c = models.Customer.objects.get(user__id=request.user.id)
+                # address = request.user.first_name +", " + c.number +", " + c.address
+                # return render(request, 'store/paymentsuccess.html',{"orderid":razorpay_order_id,"transactionid":payment_id, "address":address, "NEW_IN_THE_MENU":NEW_IN_THE_MENU})
+            
+                request.session["order_id"] = order.id
+                return redirect('ordersuccess', permanent=True)
+            
             else:
                 models.Orders.objects.filter(razorpay_order_id=razorpay_order_id).update(
                     txn_status='failed',

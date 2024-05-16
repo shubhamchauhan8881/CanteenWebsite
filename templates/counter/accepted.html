@@ -27,9 +27,9 @@
                 <td id="order-details-phone_{{order.0.id}}">{{order.1.number}}</td>
                 <td id="order-details-address_{{order.0.id}}">{{order.1.address}}</td>
                 <td>
-                    {% for p in order.2 %}
-                    <span id="order-details-items_{{order.0.id}}">{{p.0.name}} x {{p.1}}, </span>
-                    {% endfor %}
+                    
+                    <span id="order-details-items_{{order.0.id}}">{% for p in order.2 %} {{p.0.name}} x {{p.1}}, {% endfor %}</span>
+                    
                 </td>
                 <td>
                     <span class="text-white text-xs pb-1 px-2 rounded-md {% if order.0.order_status == 'rejected' %}bg-rose-500{% elif order.0.order_status == 'active' %}bg-cyan-500{% elif order.0.order_status == 'accepted' %}bg-emerald-500{% elif order.0.order_status == 'pending' %}bg-yellow-500{% elif order.0.order_status == 'completed' %}bg-blue-500{% endif %}">{{order.0.order_status}}</span>
