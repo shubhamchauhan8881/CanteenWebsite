@@ -64,19 +64,20 @@ Items : ${ $(`#order-details-items_${id}`).text() }
 
 
 
-  
+
   $(document).ready(function() {
+    const audio = new Audio("../../static/media/notify.wav");
     const interval = setInterval(function() {
         $.ajax({
             url: '/counter/notification/',
             method:"GET",
             success: function(data) {
-                
+
                 if(data.status == "ok") {
-                    const audio = new Audio("../../static/media/notify.wav");
+
                     audio.play();
                     data.data.forEach((value, i) => {
-        
+
                     const s = `
                             <tr class="hover:bg-slate-200 rounded p-2" id="row${value.id}">
                                 <td>${value.name}</td>
@@ -84,29 +85,29 @@ Items : ${ $(`#order-details-items_${id}`).text() }
                                 <td>${value.address}</td>
                                 <td>${value.amount} Rs</td>
                                 <td>${value.itemxqtty}</td>
-                                
+
                                 <td>
                                     <span class="text-white text-xs pb-1 px-2 rounded-md bg-rose-500"> ${value.status}</span>
                                 </td>
                                 <td>${value.txn_status}</td>
                                 <td>${value.placed_at}</td>
-        
+
                                 <td>
                                     <button class="px-2 text-sm py-1  bg-rose-500 rounded text-white" value="${value.id}" id="RejectOrder">Reject</button>
                                     <button class="px-2 text-sm py-1  bg-emerald-500 rounded text-white" value="${value.id}" id="AcceptOrder">Accept</button>
                                 </td>
                             </tr>
                         `;
-                        
-        
+
+
                         $("#productTable").append(s);
                     });
                 }
             }
         });
-    
+
     },20000);
-   
+
 
 
 });
