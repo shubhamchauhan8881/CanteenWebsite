@@ -3,6 +3,21 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+class Shop(models.Model):
+    name = models.CharField(max_length=100)
+    address = models.CharField(max_length=200)
+    phone = models.CharField(max_length=15)
+    image = models.ImageField(upload_to='uploads/shop/images/', null=True, blank=True)
+
+    owner = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
+
+    is_open = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
+
+
+
 class Customer(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     number = models.CharField(max_length=12)
@@ -15,14 +30,13 @@ class Customer(models.Model):
 
 
 
-
 class Category(models.Model):
     name = models.CharField(max_length=20)
-
     def __str__(self):
         return self.name
 
 class Product(models.Model):
+    shop = models.ForeignKey(Shop, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=50)
     price = models.IntegerField(default=0)
     product_ctgry = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
@@ -32,7 +46,8 @@ class Product(models.Model):
     availibility = models.BooleanField(default=True)
 
     last_modified = models.DateTimeField(auto_now_add=True)
-
+    # set to false if any products is no more sold... this help to maintian users purchase history
+    visibility = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
@@ -57,7 +72,11 @@ class Orders(models.Model):
     againAddress = models.CharField(max_length=300)
 
     amount = models.IntegerField(default=0)
-    time = models.DateTimeField(auto_now_add=True)
+
+    date = models.DateField(auto_now_add=True)
+    time = models.TimeField(auto_now_add=True)
+
+    last_modified = models.DateTimeField(auto_now_add=True)
 
     razorpay_order_id = models.CharField(max_length=100, null=True, blank=True)
     razorpay_order_reciept = models.CharField(max_length=100, null=True, blank=True)
@@ -68,6 +87,9 @@ class Orders(models.Model):
 
     # for notification purposes....
     is_notified = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.razorpay_order_id
 
     @staticmethod
     def get_orders_by_status(status):

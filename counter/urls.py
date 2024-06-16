@@ -11,6 +11,11 @@ urlpatterns = [
     path('failed/', views.FailedOrders),
     path('accepted/', views.AcceptedOrder),
     path('rejected/', views.RejectedOrder),
-    path('setstatus/<str:status>/', views.SetOrderStatus),
-    path('notification/', views.NotificationAJAX)
+    path('order/setstatus/<str:status>/<int:pid>/', views.SetOrderStatus),
+    path('notification/', views.NotificationAJAX),
+    path('shop/products/', views.ShopProducts),
+    path('set-shop-status/', views.SetShopStatus),
+    path('set-product-status/<int:pid>/', views.SetProductStatus),
+    
+    
 ]

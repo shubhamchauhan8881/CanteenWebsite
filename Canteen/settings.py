@@ -139,5 +139,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+DEFAULT_FROM_EMAIL = "elskerelvish@yahoo.com"
+EMAIL_HOST = "smtp.mail.yahoo.com"
+EMAIL_PORT = 465
+
+EMAIL_HOST_USER = "elskerelvish@yahoo.com"
+EMAIL_HOST_PASSWORD = "Elsker@#1Yahoo"
+EMAIL_USE_TLS = True
+
 KEY_ID = "rzp_live_a5FvY76QUICOQl"
 KEY_SECRET = "RcqLPrV4mp5soFcQ0i3UcjGD"

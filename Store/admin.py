@@ -6,8 +6,9 @@ from django.contrib.auth.models import User
 # Register your models here.
 
 class OrdersAdmin(admin.ModelAdmin):
-    list_display = ["Order_id","Items","Customer_name","Phone","Address","time","amount","payment_method", "txn_status", "order_status"]
-
+    list_display = ["Order_id","Items","Customer_name","Phone","Address","date","amount","payment_method", "txn_status", "order_status"]
+    readonly_fields = ["time","date","razorpay_order_id","razorpay_order_reciept","razorpay_payment_id","razorpay_signature", "products_info"]
+        
     def Order_id(self, obj):
         return obj.razorpay_order_id
     
@@ -46,6 +47,7 @@ class NewInTheMenuAdmin(admin.ModelAdmin):
         return s
 
 admin.site.register(models.Category)
+admin.site.register(models.Shop)
 admin.site.register(models.Product)
 admin.site.register(models.Customer)
 admin.site.register(models.NewInTheMenu, NewInTheMenuAdmin)

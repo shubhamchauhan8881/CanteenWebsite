@@ -1,5 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
+import re
+
 
 class LoginForm(forms.Form):
     username = forms.CharField(label="e-mail", required=True, widget=forms.TextInput(attrs={'class':' grow', 'placeholder':'e.g. someone@email.com'}))
@@ -16,9 +18,14 @@ class RegisterForm(forms.Form):
 
 
     def clean_email(self):
+        pattern = r'^[a-zA-Z0-9._%+-]+@bbdu\.ac\.in$'
+
         data = self.cleaned_data["email"]
         if User.objects.filter(username=data).exists():
             raise forms.ValidationError("Email already registered!")
+        
+        if not re.match(pattern, data):
+            raise forms.ValidationError("enter your official email ending with -@bbdu.ac.in")
         return data
 
     def clean_password(self):

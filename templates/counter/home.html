@@ -1,100 +1,23 @@
 {% extends 'counter/base.html' %}
 {% block content %}
 {% load static %}
-{% include 'counter/header.html' %}
 
-<div class="grid md:grid-cols-3 gap-5">
-            
-    <div class="flex p-5 bg-slate-100 rounded">
-        <div class="grow">
-            <h4 class="font-headings text-2xl mb-2 font-bold">569+</h4>
-            <p class="text-xs mb-1 text-headings">New Orders</p>
-            <div class="flex items-center">
-                <svg fill="#000000" width="20px" height="20px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M29.5 7c-1.381 0-2.5 1.12-2.5 2.5 0 0.284 0.058 0.551 0.144 0.805l-6.094 5.247c-0.427-0.341-0.961-0.553-1.55-0.553-0.68 0-1.294 0.273-1.744 0.713l-4.774-2.39c-0.093-1.296-1.162-2.323-2.482-2.323-1.38 0-2.5 1.12-2.5 2.5 0 0.378 0.090 0.732 0.24 1.053l-4.867 5.612c-0.273-0.102-0.564-0.166-0.873-0.166-1.381 0-2.5 1.119-2.5 2.5s1.119 2.5 2.5 2.5c1.381 0 2.5-1.119 2.5-2.5 0-0.332-0.068-0.649-0.186-0.939l4.946-5.685c0.236 0.073 0.48 0.124 0.74 0.124 0.727 0 1.377-0.316 1.834-0.813l4.669 2.341c0.017 1.367 1.127 2.471 2.497 2.471 1.381 0 2.5-1.119 2.5-2.5 0-0.044-0.011-0.086-0.013-0.13l6.503-5.587c0.309 0.137 0.649 0.216 1.010 0.216 1.381 0 2.5-1.119 2.5-2.5s-1.119-2.5-2.5-2.5z"></path> </g></svg>
-                <p> +2.9%</p>
-            </div>
-        </div>
-        
-        <div class="">
-            <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M7 14L9.29289 11.7071C9.68342 11.3166 10.3166 11.3166 10.7071 11.7071L12.2929 13.2929C12.6834 13.6834 13.3166 13.6834 13.7071 13.2929L17 10M17 10V12.5M17 10H14.5" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
-        </div>
-    </div>
+<div class="w-full">
+    <p class="my-5 text-xl font-bold">Recent Orders</p>
 
-    <div class="flex p-5 bg-slate-100 rounded">
-        <div class="grow">
-            <h4 class="font-headings text-2xl mb-2 font-bold">6+</h4>
-            <p class="text-xs mb-1 text-headings">Today's Orders</p>
-            <div class="flex items-center">
-                <svg fill="#000000" width="20px" height="20px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M29.5 7c-1.381 0-2.5 1.12-2.5 2.5 0 0.284 0.058 0.551 0.144 0.805l-6.094 5.247c-0.427-0.341-0.961-0.553-1.55-0.553-0.68 0-1.294 0.273-1.744 0.713l-4.774-2.39c-0.093-1.296-1.162-2.323-2.482-2.323-1.38 0-2.5 1.12-2.5 2.5 0 0.378 0.090 0.732 0.24 1.053l-4.867 5.612c-0.273-0.102-0.564-0.166-0.873-0.166-1.381 0-2.5 1.119-2.5 2.5s1.119 2.5 2.5 2.5c1.381 0 2.5-1.119 2.5-2.5 0-0.332-0.068-0.649-0.186-0.939l4.946-5.685c0.236 0.073 0.48 0.124 0.74 0.124 0.727 0 1.377-0.316 1.834-0.813l4.669 2.341c0.017 1.367 1.127 2.471 2.497 2.471 1.381 0 2.5-1.119 2.5-2.5 0-0.044-0.011-0.086-0.013-0.13l6.503-5.587c0.309 0.137 0.649 0.216 1.010 0.216 1.381 0 2.5-1.119 2.5-2.5s-1.119-2.5-2.5-2.5z"></path> </g></svg>
-                <p> +70%</p>
-            </div>
-        </div> 
-        
-        <div class="">
-            <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M7 14L9.29289 11.7071C9.68342 11.3166 10.3166 11.3166 10.7071 11.7071L12.2929 13.2929C12.6834 13.6834 13.3166 13.6834 13.7071 13.2929L17 10M17 10V12.5M17 10H14.5" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
-        </div>
-    </div>
-
-    <div class="flex p-5 bg-slate-100 rounded">
-        <div class="grow">
-            <h4 class="font-headings text-2xl mb-2 font-bold">12+</h4>
-            <p class="text-xs mb-1 text-headings">Orders Delivered</p>
-            <div class="flex items-center">
-                <svg fill="#000000" width="20px" height="20px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M29.5 7c-1.381 0-2.5 1.12-2.5 2.5 0 0.284 0.058 0.551 0.144 0.805l-6.094 5.247c-0.427-0.341-0.961-0.553-1.55-0.553-0.68 0-1.294 0.273-1.744 0.713l-4.774-2.39c-0.093-1.296-1.162-2.323-2.482-2.323-1.38 0-2.5 1.12-2.5 2.5 0 0.378 0.090 0.732 0.24 1.053l-4.867 5.612c-0.273-0.102-0.564-0.166-0.873-0.166-1.381 0-2.5 1.119-2.5 2.5s1.119 2.5 2.5 2.5c1.381 0 2.5-1.119 2.5-2.5 0-0.332-0.068-0.649-0.186-0.939l4.946-5.685c0.236 0.073 0.48 0.124 0.74 0.124 0.727 0 1.377-0.316 1.834-0.813l4.669 2.341c0.017 1.367 1.127 2.471 2.497 2.471 1.381 0 2.5-1.119 2.5-2.5 0-0.044-0.011-0.086-0.013-0.13l6.503-5.587c0.309 0.137 0.649 0.216 1.010 0.216 1.381 0 2.5-1.119 2.5-2.5s-1.119-2.5-2.5-2.5z"></path> </g></svg>
-                <p> +1%</p>
-            </div>
-        </div>
-        
-        <div class="">
-            <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M7 14L9.29289 11.7071C9.68342 11.3166 10.3166 11.3166 10.7071 11.7071L12.2929 13.2929C12.6834 13.6834 13.3166 13.6834 13.7071 13.2929L17 10M17 10V12.5M17 10H14.5" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
-        </div>
-    </div>
-
-</div>
-
-<div class="w-full p-3 bg-slate-100 rounded my-5">
-    <p class="mb-5 text-xl font-bold">Recent Orders</p>
-    <div class="overflow-x-scroll">
-        
-        <table class="w-full h-full text-left" id="productTable">
-            <tr>
-                <th>Name</th>
-                <th>Number</th>
-                <th>Address</th>
-                <th>Amount</th>
-                <th>Item x Quantity</th>
-                <th>Status</th>
-                <th>Payment</th>
-                <th>Placed at</th>
-                <th>Accept/Reject</th>
-            </tr>
+    <div class="grid grid-cols-2 gap-4" id="p-container">
+        {% if orders %}
             {% for order in orders %}
-            <tr class="hover:bg-slate-200 rounded p-2" id="row{{order.0.id}}">
-                <td>{{order.0.user.first_name}}</td>
-                <td>{% if order.0.againPhone %} {{order.0.againPhone}} {% else %}{{order.1.number}}{% endif %}</td>
-                <td>{% if order.0.againAddress %}{{order.0.againAddress}} {% else %}{{order.1.address}}{% endif %}</td>
-                <td>{{order.0.amount}} Rs</td>
-                <td>
-                    {% for p in order.2 %}
-                    <span>{{p.0.name}} x {{p.1}}, </span>
-                    {% endfor %}
-                </td>
-                
-                <td>
-                    <span class="text-white text-xs pb-1 px-2 rounded-md {% if order.0.order_status == 'rejected' %}bg-rose-500{% elif order.0.order_status == 'active' %}bg-cyan-500{% elif order.0.order_status == 'accepted' %}bg-emerald-500{% elif order.0.order_status == 'pending' %}bg-yellow-500{% elif order.0.order_status == 'completed' %}bg-blue-500{% endif %}">{{order.0.order_status}}</span>
-                </td>
-                <td>{{order.0.txn_status }}</td>
-                <td>{{order.0.time}}</td>
-
-                <td>
-                    <button class="px-2 text-sm py-1  bg-rose-500 rounded text-white" value="{{order.0.id}}" id="RejectOrder">Reject</button>
-                    <button class="px-2 text-sm py-1  bg-emerald-500 rounded text-white" value="{{order.0.id}}" id="AcceptOrder">Accept</button>
-                </td>
-            </tr>
+                {% include 'counter/orderListing.html' %}
             {% endfor %}
-        </table>      
-
+        {% else %}
+            <p id="home-no-orders">no any order placed yet...</p>
+        {% endif %}
     </div>
+
+    <!-- <div class="overflow-x-scroll">
+                    <span class="text-white text-xs pb-1 px-2 rounded-md {% if order.0.order_status == 'rejected' %}bg-rose-500{% elif order.0.order_status == 'active' %}bg-cyan-500{% elif order.0.order_status == 'accepted' %}bg-emerald-500{% elif order.0.order_status == 'pending' %}bg-yellow-500{% elif order.0.order_status == 'completed' %}bg-blue-500{% endif %}">{{order.0.order_status}}</span>
+    </div> -->
 </div>
 <script>
     

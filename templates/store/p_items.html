@@ -5,13 +5,21 @@
     </div>
     {% for product in products %}
     {% if product.product_ctgry.name == category.name %}
-    <div class="dish_container">
+    <div class="dish_container relative">
+        {% if product.shop.is_open == False %}
+        <div class="absolute top-0 left-0 right-0 bottom-0 z-10 bg-slate-300/40 flex items-center justify-center">
+            <p class="text-rose-600 font-semibold"> {{product.shop}} is on a break.</p>
+        </div>
+        {% endif %} 
+    
         <div class="dishes bg-Canteen/10 rounded-md mb-3">
             <div class="flex">
                 <div class="p-2 grow">
                     <p class="pname teachers text-xl">{{product.name}}</p>
                     <p class="pprice font-medium py-1">Rs. {{product.price}}/-</p>
-                    <p class="text-xs">{{product.description}}</p>
+                    <p class="text-sm">{{product.description}}</p>
+                    
+                    <p class="text-xs opacity-80">by: {{product.shop}}</p>
                 </div>
 
                 <div class="relative">

@@ -15,6 +15,7 @@ import string
 import random
 from django.contrib import messages
 
+from django.core.mail import send_mail
 
 deliveryCharge =0
 MIN_AMOUT_ORDER = 40

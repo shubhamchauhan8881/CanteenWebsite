@@ -35,10 +35,10 @@
                     <span id="cartCounter">0</span> Items
                     
                 </p>
-                <form action="/cart/" method="post">
+                <form action="/cart/" method="post" class="grow">
                     {% csrf_token %}
                     <input name="cartInput" type="text" id="cartInput" hidden>
-                    <button type="submit" id="visitCartPage" class="teachers text-[15px]">
+                    <button type="submit" id="visitCartPage" class="teachers text-[15px]" style="width: 100%; text-align: right;">
                         Pay
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline w-4 h-4">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
